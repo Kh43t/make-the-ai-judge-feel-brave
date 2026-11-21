@@ -1,15 +1,29 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 
-// One quiet vignette: a woodworker planing a cedar board at first light.
-// No instruction, no wellness words — the steadiness is in the work itself:
-// a slow pass, a shaving curling off the blade, a palm checking the edge,
-// and hands reaching for the next board, unhurried and ready.
-const text =
-  "He sets the plane to the board and draws it toward him, slow, once. " +
-  "A shaving curls from the blade, thin as paper. " +
-  "He takes another pass. The board grows smooth under his palm. " +
-  "Light comes up over the yard. " +
-  "He runs his thumb along the edge and reaches for the next board.";
+// A knife on a whetstone, told in short verse lines and in the second
+// person, so the reader is the one holding the blade. The scene stays
+// still for three slow passes, then one thumb-test and one paper cut
+// prove the edge — the courage is in doing the test, and the last line
+// lands on readiness instead of saying anything about bravery.
+const text = `You wet the stone
+and set the knife to it
+at one small angle.
+
+You draw it toward you, slow.
+Steel whispers.
+One more pass. Then one more.
+
+You lift the blade, touch the edge
+with your thumb, once.
+The knife goes through paper
+without a sound.
+What was dull is ready now.`;
+
+// Fail loudly instead of shipping an out-of-range entry.
+const length = [...text].length;
+if (length < 1 || length > 280) {
+  throw new Error(`entry must be 1-280 code points, got ${length}`);
+}
 
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", text, "utf8");
